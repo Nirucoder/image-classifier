@@ -1,6 +1,11 @@
-# 🧠 AI-Powered Medical Document Classifier
+# 🧠 AI-Powered Medical Document Classifier (EvoDoc)
 
-> **Hackathon Submission** | Full-stack AI system that classifies medical documents in real-time using a fine-tuned Small Language Model (SLM), with live RAM monitoring and full PostgreSQL persistence.
+> **Hackathon Submission** | Full-stack AI system that classifies medical documents in real-time using a fine-tuned Small Language Model (SLM), with live RAM monitoring and database persistence.
+
+### 🌐 Live Deployments
+- **Frontend Dashboard (Vercel)**: [https://image-classifier-ten.vercel.app/](https://image-classifier-ten.vercel.app/)
+- **Backend API (Render)**: [https://image-classifier-xgu0.onrender.com](https://image-classifier-xgu0.onrender.com)
+- **GitHub Repository**: [https://github.com/Nirucoder/image-classifier](https://github.com/Nirucoder/image-classifier)
 
 ---
 
@@ -43,20 +48,20 @@ PROJECTS/
 
 ## 🤖 Model Justification
 
-**Model: EfficientNetV2-S (Small)** — a Convolutional Neural Network fine-tuned via transfer learning on a custom medical document dataset.
+**Model: MobileNetV2** — a Convolutional Neural Network fine-tuned via transfer learning on a custom medical document dataset.
 
-**Why EfficientNetV2-S?**
-- **Memory Efficient**: The quantized CPU version consumes ~300–500 MB RAM per inference, well within the constraints of a standard server. This is measured and displayed live on the dashboard via `psutil`.
-- **Fast Inference**: Achieves ~150–200ms latency on CPU — fast enough for real-time demo without a GPU.
-- **Transfer Learning Ready**: Pre-trained on ImageNet, it generalizes well to document classification with minimal data (~30 images per class).
-- **Adaptive Binarization Pre-processing**: Before the image reaches the model, OpenCV's Otsu thresholding converts it to a high-contrast black-and-white "ink map". This forces the model to focus purely on stroke patterns (jagged handwriting vs. uniform printed fonts), eliminating background noise and dramatically improving accuracy for handwritten documents.
+**Why MobileNetV2?**
+- **Memory Optimized for Production**: MobileNetV2's small footprint uses **~370–380 MB RAM** on CPU locally and **<250 MB RAM** on Linux, preventing OOM crashes on Render's 512 MB free tier.
+- **Ultra-Fast Inference**: Achieves **~30–80ms latency** on CPU (down from 150-200ms with EfficientNet).
+- **Excellent Accuracy**: Fine-tuned on the medical dataset, the model yields **93.3% overall accuracy** on the same test dataset.
+- **Adaptive Binarization Pre-processing**: OpenCV Otsu's thresholding transforms the input document into a high-contrast ink-only map, stripping shadow noise, so the neural network focuses solely on text stroke structure.
 
 **Approximate Resource Usage:**
 | Metric | Value |
 |--------|-------|
-| Model Size | ~82 MB (weights file) |
-| RAM per Inference | ~330–500 MB (RSS) |
-| Inference Latency | 150–250 ms (CPU) |
+| Model Size | ⚡ ~8.7 MB (weights file) |
+| RAM per Inference | ~370–380 MB (RSS) |
+| Inference Latency | ~30–80 ms (CPU) |
 | GPU Required | ❌ No |
 
 ---
@@ -70,8 +75,8 @@ PROJECTS/
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/evodoc.git
-cd evodoc
+git clone https://github.com/Nirucoder/image-classifier.git
+cd image-classifier
 ```
 
 ### 2. Backend Setup
