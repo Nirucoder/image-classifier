@@ -22,7 +22,7 @@ transform = transforms.Compose([
 ])
 
 def evaluate():
-    model = models.efficientnet_v2_s()
+    model = models.mobilenet_v2()
     model.classifier[1] = torch.nn.Linear(model.classifier[1].in_features, len(LABELS))
     
     weights_path = "model_weights.pth"

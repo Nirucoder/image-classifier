@@ -41,16 +41,16 @@ def train():
     print(f"Detected classes: {dataset.classes}")
     print(f"Total images: {len(dataset)}")
 
-    # 4. Initialize Model (EfficientNetV2-S)
-    model = models.efficientnet_v2_s(weights='DEFAULT')
+    # 4. Initialize Model (MobileNetV2)
+    model = models.mobilenet_v2(weights='DEFAULT')
     
     # Freeze all layers first
     for param in model.parameters():
         param.requires_grad = False
         
     # Unfreeze the last block of features for specialized learning
-    # EfficientNetV2-S has 7 blocks. Block 6 and 7 are often safe to unfreeze for fine-tuning.
-    for param in model.features[6:].parameters():
+    # MobileNetV2 features has 19 layers (0 to 18). Block 14 onwards represents the late high-level features.
+    for param in model.features[14:].parameters():
         param.requires_grad = True
         
     num_features = model.classifier[1].in_features

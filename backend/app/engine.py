@@ -11,15 +11,23 @@ import torch.nn.functional as F
 # Labels ordered alphabetically to match datasets.ImageFolder
 LABELS = ["Handwritten Prescription", "Medical Scans (X-Ray-MRI)", "Printed Lab Report", "Printed Prescription"]
 
-# Initialize SLM
-model = models.efficientnet_v2_s(weights='DEFAULT')
+# Configure PyTorch for single-threaded CPU execution to minimize memory footprint
+torch.set_num_threads(1)
+torch.set_num_interop_threads(1)
+
+# Initialize model without default weights to save memory
+model = models.mobilenet_v2(weights=None)
 model.classifier[1] = torch.nn.Linear(model.classifier[1].in_features, len(LABELS))
 
 # Load trained weights if available
 WEIGHTS_PATH = os.path.join(os.path.dirname(__file__), "..", "model_weights.pth")
 if os.path.exists(WEIGHTS_PATH):
     print(f"Loading trained weights from {WEIGHTS_PATH}")
-    model.load_state_dict(torch.load(WEIGHTS_PATH, map_location=torch.device('cpu')))
+    state_dict = torch.load(WEIGHTS_PATH, map_location=torch.device('cpu'))
+    model.load_state_dict(state_dict)
+    del state_dict
+    import gc
+    gc.collect()
     
 model.eval()
 
