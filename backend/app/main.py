@@ -69,5 +69,26 @@ async def classify_document(file: UploadFile = File(...), db: Session = Depends(
 
 @app.get("/history")
 def get_history(db: Session = Depends(get_db)):
-    # Fetch the 10 most recent classifications
-    return db.query(ClassificationHistory).order_by(ClassificationHistory.created_at.desc()).limit(10).all()
+    # Fetch the 10 most recent classifications (excluding the large binary image_data)
+    records = db.query(
+        ClassificationHistory.id,
+        ClassificationHistory.filename,
+        ClassificationHistory.prediction,
+        ClassificationHistory.confidence,
+        ClassificationHistory.latency_ms,
+        ClassificationHistory.ram_mb,
+        ClassificationHistory.created_at
+    ).order_by(ClassificationHistory.created_at.desc()).limit(10).all()
+    
+    return [
+        {
+            "id": r.id,
+            "filename": r.filename,
+            "prediction": r.prediction,
+            "confidence": r.confidence,
+            "latency_ms": r.latency_ms,
+            "ram_mb": r.ram_mb,
+            "created_at": r.created_at
+        }
+        for r in records
+    ]

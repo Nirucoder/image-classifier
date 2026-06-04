@@ -10,8 +10,8 @@ __pycache__/
 *.pyc
 *.pyo
 
-# Large model files (download/train separately)
-backend/model_weights.pth
+# Large model files - weights committed for production deploy
+# backend/model_weights.pth
 backend/data/
 
 # Test images at root

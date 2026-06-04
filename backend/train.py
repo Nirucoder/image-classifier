@@ -12,7 +12,7 @@ from torchvision import datasets, models, transforms
 DATA_DIR = "data"
 MODEL_SAVE_PATH = "model_weights.pth"
 BATCH_SIZE = 2
-EPOCHS = 5  # Reduced for faster first-time deployment
+EPOCHS = 25  # Increased for better convergence
 LEARNING_RATE = 0.0005
 
 # 2. Preprocessing with Binarization Logic (The "Base Points" approach)
@@ -59,14 +59,23 @@ def train():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = model.to(device)
 
-    # 5. Loss and Optimizer
-    criterion = nn.CrossEntropyLoss()
+    # 5. Loss and Optimizer (With Class Weights)
+    class_counts = [0] * num_classes
+    for _, label in dataset:
+        class_counts[label] += 1
+    
+    print(f"Class counts: {class_counts}")
+    weights = [len(dataset) / (num_classes * count) if count > 0 else 1.0 for count in class_counts]
+    class_weights = torch.FloatTensor(weights).to(device)
+    print(f"Calculated class weights: {class_weights}")
+
+    criterion = nn.CrossEntropyLoss(weight=class_weights)
     # Optimize both the unfrozen features and the classifier
     optimizer = optim.Adam([
         {'params': model.features[6:].parameters(), 'lr': LEARNING_RATE * 0.1},
         {'params': model.classifier[1].parameters(), 'lr': LEARNING_RATE}
     ])
-    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=5)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3)
 
     # 6. Training Loop
     print("Starting training...")
