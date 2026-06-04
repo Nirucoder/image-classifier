@@ -4,6 +4,8 @@ backend/venv/
 
 # Environment secrets
 .env
+backend/.env
+# Note: frontend/.env.production is intentionally committed (contains public API URL only)
 
 # Python cache
 __pycache__/
