@@ -2,7 +2,7 @@
 # Render startup script - trains model if weights don't exist
 set -e
 
-echo "=== EVODOC Startup ==="
+echo "=== MEDCLASSIFY Startup ==="
 
 if [ ! -f "model_weights.pth" ]; then
   echo "Model weights not found. Downloading training data and training..."

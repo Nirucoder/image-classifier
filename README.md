@@ -1,4 +1,4 @@
-# 🧠 AI-Powered Medical Document Classifier (EvoDoc)
+# 🧠 AI-Powered Medical Document Classifier (MedClassify)
 
 > **Hackathon Submission** | Full-stack AI system that classifies medical documents in real-time using a fine-tuned Small Language Model (SLM), with live RAM monitoring and database persistence.
 
@@ -140,7 +140,7 @@ python check_db.py
 Expected output:
 ```
 ============================================================
-  🩺 EVODOC - PostgreSQL Database Inspector
+  🩺 MEDCLASSIFY - PostgreSQL Database Inspector
 ============================================================
 
   ID    Filename                       Result                     Conf%    RAM(MB)    Image Size     Time
@@ -177,7 +177,7 @@ Returns the last 10 classification records from PostgreSQL.
 Copy `.env.example` to `.env` and fill in your values:
 
 ```env
-DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@localhost:5432/evodoc_db
+DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@localhost:5432/medclassify_db
 FRONTEND_URL=http://localhost:5173
 ```
 

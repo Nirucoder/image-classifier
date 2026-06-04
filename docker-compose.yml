@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: evodoc_db
+      POSTGRES_DB: medclassify_db
     ports:
       - "5432:5432"
     volumes:
@@ -24,7 +24,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/evodoc_db
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/medclassify_db
       FRONTEND_URL: http://localhost:5173
     depends_on:
       db:

@@ -9,7 +9,7 @@ engine = create_engine(DATABASE_URL)
 
 with engine.connect() as connection:
     print("\n" + "="*60)
-    print("  🩺 EVODOC - PostgreSQL Database Inspector")
+    print("  🩺 MEDCLASSIFY - PostgreSQL Database Inspector")
     print("="*60)
 
     result = connection.execute(text("""

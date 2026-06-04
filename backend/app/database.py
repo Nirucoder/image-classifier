@@ -6,7 +6,7 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 load_dotenv()
 
 # Get Database URL from environment, default to an in-memory sqlite for safety if missing
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./evodoc.db")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./medclassify.db")
 
 engine = create_engine(DATABASE_URL)
 if "sqlite" in DATABASE_URL:

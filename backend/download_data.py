@@ -81,7 +81,7 @@ def download_data():
             
             print(f"Downloading {category} sample {i+1}...")
             try:
-                headers = {'User-Agent': 'EvoDocClassifier/1.0 (contact: admin@evodoc.org)'}
+                headers = {'User-Agent': 'MedicalClassifier/1.0 (contact: admin@medclassify.org)'}
                 response = requests.get(url, headers=headers, timeout=10)
                 if response.status_code == 200:
                     with open(filepath, 'wb') as f:

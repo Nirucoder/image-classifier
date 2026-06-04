@@ -69,8 +69,8 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1">
-              <span className="text-3xl font-bold tracking-tight text-white">EVO</span>
-              <span className="text-3xl font-bold tracking-tight text-[#A4D831]">DOC</span>
+              <span className="text-3xl font-bold tracking-tight text-white">MED</span>
+              <span className="text-3xl font-bold tracking-tight text-[#A4D831]">CLASSIFY</span>
             </div>
             <div className="ml-4 flex items-center gap-2 text-xs text-gray-400 tracking-widest">
               <svg className="w-3 h-3 text-[#A4D831]" fill="currentColor" viewBox="0 0 24 24">
